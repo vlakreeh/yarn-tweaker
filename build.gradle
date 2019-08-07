@@ -1,0 +1,66 @@
+buildscript {
+    repositories {
+        mavenCentral()
+
+        maven {
+            name = "Fabric"
+            url = "https://maven.fabricmc.net/"
+        }
+
+        maven {
+            name = "JitPack"
+            url  = "https://jitpack.io"
+        }
+    }
+
+    dependencies {
+        classpath "com.github.vlakreeh:fabric-loom:dev~0.2.5-SNAPSHOT"
+        classpath "net.fabricmc:tiny-mappings-parser:0.1.1.8"
+        classpath "net.fabricmc:tiny-remapper:0.1.0.38"
+    }
+}
+
+apply plugin: "fabric-loom"
+apply plugin: "java"
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    mavenCentral()
+
+    maven {
+            name = "Fabric"
+            url = "https://maven.fabricmc.net/"
+        }
+
+    maven {
+        name = "JitPack"
+        url  = "https://jitpack.io"
+    }
+}
+
+minecraft {
+    tweakClass = "website.zeb.tweaker.YarnDevelopmentTweaker"
+    refmapName = "mixins.yarn-tweaker.refmap.json"
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
+    modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    compile (group: "net.minecraft", name: "launchwrapper", version: "1.12") { transitive = false }
+    compile (group: "website.zeb", name: "public-forcing-transformer", version: "1.0.0") { transitive = false }
+
+    compile group: "website.zeb.sponge-mixin", name: "sponge-mixin", version: "0.7.11"
+    compile group: "net.fabricmc", name: "tiny-mappings-parser", version: "0.1.1.8"
+    compile group: "org.ow2.asm", name: "asm", version: "7.1"
+    compile group: "org.ow2.asm", name: "asm-commons", version: "7.1"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = "sources"
+	from sourceSets.main.allSource
+}
