@@ -14,7 +14,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.github.vlakreeh:fabric-loom:dev~0.2.5-SNAPSHOT"
+        classpath "website.zeb:fabric-loom:0.2.5"
         classpath "net.fabricmc:tiny-mappings-parser:0.1.1.8"
         classpath "net.fabricmc:tiny-remapper:0.1.0.38"
     }
